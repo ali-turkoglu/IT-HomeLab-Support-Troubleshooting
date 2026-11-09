@@ -49,7 +49,7 @@ I built the environment for this project in the previous four parts:
 | Part 2 | [Cloud Identity & Microsoft 365](https://github.com/ali-turkoglu/IT-HomeLab-Cloud-Identity) |
 | Part 3 | [Linux Administration](https://github.com/ali-turkoglu/IT-HomeLab-Linux-Administration) |
 | Part 4 | [Docker & Containers](https://github.com/ali-turkoglu/IT-HomeLab-Docker-Containers) |
-| **Part 5** | **IT Support & Troubleshooting Lab — this repository** |
+| **Part 5** | ***IT Support & Troubleshooting Lab — this repository*** |
 | Part 6 | Linux Operations — planned |
 
 [← Back to IT HomeLab Journey](https://github.com/ali-turkoglu/IT-HomeLab-Journey)
@@ -79,7 +79,6 @@ I will add each completed case below with a link and a short English description
 
 I have not added any completed cases yet.
 
-<!-- Add each completed case here as a linked heading followed by a short English description. Keep this section directly above License. -->
 
 ## License
 
