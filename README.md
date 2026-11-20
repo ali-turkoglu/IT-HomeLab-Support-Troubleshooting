@@ -3,7 +3,7 @@
 > **Part 5 of the IT-HomeLab Series**  
 > **Investigate · Resolve · Verify · Document**
 >
-> **Status:** ⏳ Preparing the first case
+> **Status:** 📘 First support case published
 
 ## About This Project
 
@@ -77,9 +77,12 @@ On each case page, I describe the problem, my checks, the cause, the solution, a
 
 I will add each completed case below with a link and a short English description. On the linked page, I will explain my work in German and include the relevant screenshots.
 
-I have not added any completed cases yet.
+| Case | Topic | Summary |
+|:---|:---|:---|
+| [001](cases/001-domain-logon.md) | Windows domain logon | A support simulation with AD account checks, domain and user-specific password policies, and GLPI documentation and closure. No actual account unlock or logon test was performed. |
 
 
 ## License
 
 I share the documentation in this repository under the MIT License.
+
