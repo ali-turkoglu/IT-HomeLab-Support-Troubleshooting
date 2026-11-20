@@ -9,69 +9,52 @@
 | Status | Geschlossen |
 | Umgebung | Windows-Domäne im HomeLab, Active Directory, GLPI |
 
-## Ziel und Umfang
+## Hintergrund
 
-In diesem Fall übe ich den Ablauf eines Support-Tickets: Informationen sammeln, Einstellungen prüfen, Ergebnisse dokumentieren und das Ticket schließen. Ich übernehme dabei die Rolle des Benutzers und des Technikers.
+Für meinen ersten Supportfall habe ich eine Anmeldestörung im HomeLab als Simulation bearbeitet. Ich habe das Ticket als Benutzer erstellt und danach als Techniker übernommen. Eine echte Kontosperrung, eine Entsperrung und einen Anmeldetest habe ich dabei nicht durchgeführt.
 
-Die Störung ist simuliert. Das Konto wurde nicht wirklich gesperrt oder entsperrt. Ein Anmeldetest wurde nicht durchgeführt.
+## 1. Die Meldung
 
-## 1. Meldung des Benutzers
+Im Ticket stand, dass die Anmeldung mit dem Firmenkonto nicht mehr funktionierte. Am Vortag war die Anmeldung noch möglich.
 
-Der Benutzer kann sich nicht mit seinem Firmenkonto am Windows-PC anmelden. Am Vortag hat die Anmeldung noch funktioniert.
+Ich habe nach der genauen Fehlermeldung gefragt und um einen Screenshot ohne persönliche Daten gebeten. In der Benutzerrolle habe ich geantwortet, dass Tastaturlayout und Feststelltaste geprüft wurden. Die Meldung im Szenario lautete: „Das Benutzerkonto ist gesperrt.“
 
-Ich frage nach der genauen Fehlermeldung und bitte um einen Screenshot ohne persönliche Daten.
+## 2. Das Benutzerkonto
 
-In der simulierten Antwort bestätigt der Benutzer, dass er das Tastaturlayout und die Feststelltaste geprüft hat. Er meldet: „Das Benutzerkonto ist gesperrt.“
-
-## 2. Benutzerkonto prüfen
-
-Ich öffne **Active Directory Users and Computers** und prüfe das Testkonto `finance.user01` unter **Properties → Account**.
-
-Hier befindet sich die Funktion **Unlock account**. Damit kann ein gesperrtes Konto entsperrt werden. In diesem Fall führe ich keine Entsperrung durch.
+In **Active Directory Users and Computers** habe ich das Testkonto `finance.user01` geöffnet. Unter **Properties → Account** habe ich die Kontoeinstellungen und die Funktion **Unlock account** angesehen.
 
 ![Kontoeinstellungen und die Funktion Unlock account](../assets/case-001/01-ad-account-settings.png)
 
-## 3. Kennwortrichtlinien prüfen
+## 3. Die Kennwortrichtlinien
 
-### Default Domain Policy
+Zuerst habe ich in **Group Policy Management** die **Default Domain Policy** geprüft. Unter **Account Lockout Policy** stand der Wert **Account lockout threshold** auf **0**. Die automatische Kontosperrung war dort also nicht aktiviert.
 
-In **Group Policy Management** prüfe ich die **Account Lockout Policy**. Der Wert **Account lockout threshold** ist auf **0** gesetzt. Diese Richtlinie sperrt Konten bei falschen Passworteingaben nicht automatisch.
+Danach wollte ich wissen, ob für den Benutzer eine andere Richtlinie galt. Im **Active Directory Administrative Center** habe ich **View resultant password settings** gewählt.
 
-### Richtlinie für den Benutzer
+Dabei wurde die **Finance department Password Policy** angezeigt. Auch dort war **Enforce account lockout policy** nicht aktiviert. Die grau angezeigten Zeitwerte waren deshalb nicht aktiv.
 
-Die allgemeine Domain-Richtlinie allein reicht für die Prüfung nicht aus. Für einzelne Benutzer oder Gruppen kann eine besondere Kennwortrichtlinie gelten.
+## 4. Meine Notiz im Ticket
 
-Im **Active Directory Administrative Center** wähle ich beim Testbenutzer **View resultant password settings**.
-
-Für `finance.user01` gilt die **Finance department Password Policy**. Dort ist **Enforce account lockout policy** nicht aktiviert. Die grau angezeigten Zeitwerte sind deshalb nicht aktiv.
-
-## 4. Ergebnis dokumentieren
-
-Die geprüften Einstellungen bestätigen keine automatische Kontosperrung durch falsche Passworteingaben. Ich ändere keine Einstellungen.
-
-Ich dokumentiere die Prüfungen und Ergebnisse als private Notiz in GLPI.
+Die geprüften Richtlinien passten nicht zur angenommenen Kontosperrung im Szenario. Ich habe die Ergebnisse als private Notiz in GLPI festgehalten und keine Einstellungen geändert.
 
 ![Private technische Notiz in GLPI](../assets/case-001/02-glpi-investigation-note.png)
 
-Bei einer echten Kontosperrung würde ich das Konto entsperren und den Benutzer um einen erneuten Anmeldetest bitten. Wenn sich das Konto wieder sperrt, würde ich die Ursache weiter prüfen, zum Beispiel alte gespeicherte Passwörter und passende Ereignisprotokolle.
+## 5. Der Abschluss
 
-## 5. Ticket abschließen
-
-Ich trage das Ergebnis der Simulation als Lösung ein. Danach akzeptiere ich die Lösung mit dem Benutzerkonto in GLPI. Das Ticket erhält den Status **Closed**.
-
-Der Abschluss bestätigt das Ende der Übung. Er bestätigt keine tatsächlich behobene Anmeldestörung.
+Ich habe das Ergebnis als Lösung eingetragen. Danach bin ich zum Benutzerkonto in GLPI gewechselt und habe die Lösung akzeptiert. Das Ticket wurde geschlossen.
 
 ![Geschlossenes GLPI-Ticket Nummer 3](../assets/case-001/03-glpi-ticket-closed.png)
 
+Zum Abschluss habe ich auch den Nachrichtenverlauf festgehalten. Er zeigt die Antwort des Benutzers, meine technische Notiz und den Abschluss der Simulation.
+
+![Nachrichtenverlauf und Abschluss in GLPI](../assets/case-001/04-ticket-messages.png)
+
 ## Was ich gelernt habe
 
-- Zuerst nach der genauen Fehlermeldung fragen.
-- Benutzerkonto und geltende Kennwortrichtlinie getrennt prüfen.
-- Eine besondere Kennwortrichtlinie kann für den Benutzer gelten.
-- Nur notwendige Informationen im Ticket dokumentieren.
-- Zwischen einer Simulation und tatsächlich durchgeführten Änderungen unterscheiden.
+Die genaue Fehlermeldung hat mir geholfen, die ersten Prüfungen auszuwählen. Bei den Richtlinien habe ich gesehen, dass für den Benutzer eine besondere Kennwortrichtlinie galt. Deshalb war die Default Domain Policy allein für diese Prüfung nicht genug.
+
+Außerdem habe ich den Ablauf mit zwei GLPI-Konten geübt: Rückfrage, Benutzerantwort, private Notiz, Lösung und Annahme der Lösung. Die Notizen habe ich kurz gehalten und nur die tatsächlichen Prüfungen dokumentiert.
 
 ---
 
 [Zurück zu IT Support & Troubleshooting](../README.md)
-
