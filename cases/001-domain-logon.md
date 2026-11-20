@@ -57,4 +57,4 @@ Außerdem habe ich den Ablauf mit zwei GLPI-Konten geübt: Rückfrage, Benutzera
 
 ---
 
-[Zurück zu IT Support & Troubleshooting](../README.md)
+🏠 [Zurück zu IT Support & Troubleshooting](../README.md)
